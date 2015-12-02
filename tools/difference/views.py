@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.generic import FormView
 
 from difference.forms import DifferenceForm
+from difference.models import Difference
 
 class DifferenceView(FormView):
     """
@@ -16,7 +17,8 @@ class DifferenceView(FormView):
     form_class = DifferenceForm
     # TODO: Use proper form handling with validation.
 
-    # TODO: Move this method to a utils file.
+    # TODO: Move this method to the model and autoset the difference value upon
+    # saving.
     def get_difference(self, number):
         """
         Get difference between the sum of the squares and the square of the sums
@@ -37,11 +39,23 @@ class DifferenceView(FormView):
         number = self.request.GET.get('number')
         # TODO: Add error handling to ensure 'number' is numerical.
 
+        try:
+            difference = Difference.objects.get(number=number)
+            difference.occurrences = difference.occurrences + 1
+            difference.save()
+
+        except Difference.DoesNotExist:
+            difference = Difference.objects.create(
+                number=number,
+                value=self.get_difference(number),
+                occurrences=1,
+            )
+
         context = {
-            "datetime": None,
-            "value": self.get_difference(number),
-            "number": number,
-            "occurrences": None
+            "datetime": difference.update_dt,
+            "value": difference.value,
+            "number": difference.number,
+            "occurrences": difference.occurrences
         }
 
         return context
