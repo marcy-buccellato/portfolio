@@ -14,6 +14,7 @@ class DifferenceView(FormView):
     100.
     """
     form_class = DifferenceForm
+    # TODO: Use proper form handling with validation.
 
     # TODO: Move this method to a utils file.
     def get_difference(self, number):
