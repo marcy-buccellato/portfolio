@@ -14,6 +14,13 @@ class DifferenceView(FormView):
     """
     form_class = DifferenceForm
 
+    # TODO: Move this method to a utils file.
+    def get_difference(self, number):
+        """
+        Get difference between the sum of the squares and the square of the sums
+        for a given number
+        """        
+
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests and instantiates a blank version of the form.
