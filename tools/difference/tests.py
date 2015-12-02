@@ -12,6 +12,6 @@ class TestViews(TestCase):
 	def test_get_difference(self):
 		number = 10
 		value = self.view.get_difference(number)
-		expected_value = 3025
+		expected_value = 2640
 
 		self.assertEqual(value, expected_value)

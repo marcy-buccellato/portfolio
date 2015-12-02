@@ -1,4 +1,5 @@
 import json
+import math
 
 from django.http import JsonResponse
 from django.views.generic import FormView
@@ -19,20 +20,23 @@ class DifferenceView(FormView):
         """
         Get difference between the sum of the squares and the square of the sums
         for a given number
-        """        
+        """
+        sum_of_the_squares = 0
+        sum_of_the_numbers = 0
+        for x in range(1, int(number) + 1):
+            sum_of_the_squares += math.pow(x, 2)
+            sum_of_the_numbers += x
 
-    def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates a blank version of the form.
-        """
-        form = self.get_form()
-        return self.render_to_response(self.get_context_data(form=form))
+        square_of_the_sums = math.pow(sum_of_the_numbers, 2)
+
+        return square_of_the_sums - sum_of_the_squares
 
     def get_context_data(self, **kwargs):
+        number = self.request.GET.get('number')
         context = {
             "datetime": None,
-            "value": None,
-            "number": self.request.GET.get('number'),
+            "value": self.get_difference(number),
+            "number": number,
             "occurrences": None
         }
 
