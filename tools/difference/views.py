@@ -39,17 +39,12 @@ class DifferenceView(FormView):
         number = self.request.GET.get('number')
         # TODO: Add error handling to ensure 'number' is numerical.
 
-        try:
-            difference = Difference.objects.get(number=number)
-            difference.occurrences = difference.occurrences + 1
-            difference.save()
+        difference, created = Difference.objects.get_or_create(number=number)
+        if created:
+            difference.value = self.get_difference(number),
 
-        except Difference.DoesNotExist:
-            difference = Difference.objects.create(
-                number=number,
-                value=self.get_difference(number),
-                occurrences=1,
-            )
+        difference.occurrences = difference.occurrences + 1
+        difference.save()
 
         context = {
             "datetime": difference.update_dt,
