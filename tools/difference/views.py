@@ -21,6 +21,7 @@ class DifferenceView(FormView):
         Get difference between the sum of the squares and the square of the sums
         for a given number
         """
+        # TODO: Add limit of 100 for a number.
         sum_of_the_squares = 0
         sum_of_the_numbers = 0
         for x in range(1, int(number) + 1):
@@ -33,6 +34,8 @@ class DifferenceView(FormView):
 
     def get_context_data(self, **kwargs):
         number = self.request.GET.get('number')
+        # TODO: Add error handling to ensure 'number' is numerical.
+
         context = {
             "datetime": None,
             "value": self.get_difference(number),
