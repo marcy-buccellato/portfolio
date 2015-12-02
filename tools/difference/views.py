@@ -29,7 +29,7 @@ class DifferenceView(FormView):
 
         sum_of_the_squares = 0
         sum_of_the_numbers = 0
-        for x in range(1, int(number) + 1):
+        for x in range(1, number + 1):
             sum_of_the_squares += math.pow(x, 2)
             sum_of_the_numbers += x
 
@@ -41,6 +41,7 @@ class DifferenceView(FormView):
         context = {}
         number = self.request.GET.get('number')
         if number:
+            number = int(number)
             # TODO: Add error handling to ensure 'number' is numerical.
 
             difference, created = Difference.objects.get_or_create(number=number)
