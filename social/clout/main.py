@@ -48,16 +48,9 @@ class Clout(object):
             return False
 
         follower.unset_current_followee()
-    
-        # Adjust followee current_followee score: followee.current_followee score = followee.current_followee score + follower + follower score
-        if followee.current_followee:
-            followee.current_followee.add_to_score(1 + follower.score)
-
-        # Set followee score: followee score = followee score + follower + follower score
-        followee.add_to_score(1 + follower.score)
-
-        # Finally, set follower's current_followee to followee
         follower.set_current_followee(followee)
+
+        followee.add_follower(follower)
 
         # Reorder set of people in score descending order.
         self.people.sort(key=lambda person: person.score, reverse=True)
@@ -97,17 +90,34 @@ class Person(object):
         self.current_followee = followee
 
     def add_follower(self, follower):
+        """
+        Add follower to followers list and adjust score: 
+        score = score + follower + follower score
+
+        Also adjust current_followee score accordingly.
+        """
         self.followers.append(follower)
+        self.add_to_score(1 + follower.score)
+
+        self.add_follower_to_current_followee_score(follower)
 
     def add_to_score(self, score):
         self.score += score
 
     def unset_current_followee(self):
         """
-        Unset current_followee and adjust accordingly: 
+        Unset current_followee and adjust score accordingly: 
         current_followee score = current_followee score - (follower + follower score)
         """
         if self.current_followee:
             self.current_followee.add_to_score(-(1 + self.score))
 
         self.current_followee = None
+
+    def add_follower_to_current_followee_score(self, follower):
+        """
+        Adjust current followee score such that he acquires the follower and his score: 
+        current_followee score = current_followee score + follower + follower score
+        """
+        if self.current_followee:
+            self.current_followee.add_to_score(1 + follower.score)
