@@ -15,35 +15,27 @@ class TestClout(unittest.TestCase):
         self.assertEqual(clout.people['ben'].score, 1)
         self.assertEqual(clout.people['nancy'].score, 0)
 
-    def test_follow_accumulates(self):
+    def test_follow_from_example(self):
         clout = Clout()
-        clout.follow('alfred', 'nancy')
-        clout.follow('nancy', 'andrew')
-        clout.follow('andrew', 'alicia')
+        clout.follow('neymar', 'xavi')
+        # neymar = 0, xavi = 1
+        clout.follow('neymar', 'messi')
+        # neymar = 0, xavi = 0, messi = 1
+        clout.follow('messi', 'messi')
+        # neymar = 0, xavi = 0, messi = 1
+        clout.follow('pique', 'victor')
+        # neymar = 0, xavi = 0, messi = 1, pique = 0, victor = 1
+        clout.follow('jordi', 'pique')
+        # neymar = 0, xavi = 0, messi = 1, pique = 1, victor = 2, jordi = 0
+        clout.follow('messi', 'victor')
+        # neymar = 0, xavi = 0, messi = 1, pique = 0, victor = 4, jordi = 0
 
-        self.assertEqual(clout.people['alicia'].score, 3)
-        self.assertEqual(clout.people['andrew'].score, 2)
-        self.assertEqual(clout.people['nancy'].score, 1)
-        self.assertEqual(clout.people['alfred'].score, 0)
-
-    def test_follow_accumulates_2(self):
-        clout = Clout()
-        clout.follow('alfred', 'nancy')
-        clout.follow('andrew', 'nancy')
-
-        self.assertEqual(clout.people['nancy'].score, 2)
-        self.assertEqual(clout.people['alfred'].score, 0)
-        self.assertEqual(clout.people['andrew'].score, 0)
-
-    def test_follow_accumulates_3(self):
-        clout = Clout()
-        clout.follow('alfred', 'nancy')
-        clout.follow('nancy', 'alfred')
-        clout.follow('nancy', 'andrew')
-
-        self.assertEqual(clout.people['nancy'].score, 1)
-        self.assertEqual(clout.people['alfred'].score, 2)
-        self.assertEqual(clout.people['andrew'].score, 2)
+        self.assertEqual(clout.people['victor'].score, 4)
+        self.assertEqual(clout.people['messi'].score, 1)
+        self.assertEqual(clout.people['pique'].score, 1)
+        self.assertEqual(clout.people['jordi'].score, 0)
+        self.assertEqual(clout.people['neymar'].score, 0)
+        self.assertEqual(clout.people['xavi'].score, 0)
 
     def test_follow_follows_self(self):
         clout = Clout()
@@ -51,15 +43,6 @@ class TestClout(unittest.TestCase):
 
         self.assertFalse(follows)
         self.assertEqual(clout.people['nancy'].score, 0)
-
-    def test_follow_follows_twice(self):
-        clout = Clout()
-        follows_once = clout.follow('nancy', 'ben')
-        follows_twice = clout.follow('nancy', 'ben')
-
-        self.assertTrue(follows_once)
-        self.assertFalse(follows_twice)
-        self.assertEqual(clout.people['ben'].score, 1)
 
     def test_clout_default(self):
         # TODO: mock follow() method since that is not what we are testing.

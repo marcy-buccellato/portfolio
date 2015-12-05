@@ -35,21 +35,32 @@ class Clout(object):
         follower = self.get_person_by_name(follower_name)
         followee = self.get_person_by_name(followee_name)
 
-        if follower in followee.followers:
-            # Follower is already following followee.
-            return False
-        elif follower == followee:
+        # A person can have an unlimited number of followers.
+        # A person can only follow one person.
+        # A person can change who they follow.
+        # A person may not follow her/himself.
+
+        if follower == followee:
             # Don't allow follower to follow himself.
             return False
-        else:
-            followee.add_follower(follower)
 
-        # Add the follower's score plus 1 for him as a follower, i.e. you
-        # accumulate his followers.
-        followee.add_to_score(follower.score + 1)
+        # Unset current_followee score: current_followee score = current_followee score - (follower + follower score)
+        if follower.current_followee:
+            follower.current_followee.add_to_score(-(1 + follower.score))
+            self.people[follower.current_followee.name] = follower.current_followee
+    
+        # Adjust followee current_followee score: followee.current_followee score = followee.current_followee score + follower + follower score
+        if followee.current_followee:
+            followee.current_followee.add_to_score(1 + follower.score)
+            self.people[followee.current_followee.name] = followee.current_followee
 
-        # Reset followee to reflect new score.
+        # Set followee score: followee score = followee score + follower + follower score
+        followee.add_to_score(1 + follower.score)
         self.people[followee_name] = followee
+
+        # Finally, set follower's current_followee to followee
+        follower.set_current_followee(followee)
+        self.people[follower_name] = follower
 
         return True
 
@@ -78,8 +89,12 @@ class Person(object):
 
     def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name')
+        self.current_followee = None
         self.followers = []
         self.score = 0
+
+    def set_current_followee(self, followee):
+        self.current_followee = followee
 
     def add_follower(self, follower):
         self.followers.append(follower)
