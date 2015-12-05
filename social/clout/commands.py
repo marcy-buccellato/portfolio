@@ -10,7 +10,7 @@ class CloutCli(cmd.Cmd):
         Print the clout of the person if provided, else all the people.
         :param person:
         """
-        print self.clout.clout(person=person)
+        print self.clout.clout(name=person)
 
     def default(self, line):
         """
