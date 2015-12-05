@@ -27,7 +27,7 @@ class CloutCli(cmd.Cmd):
             if follows:
                 print "OK!"
             else:
-                print "Nope!"
+                print "Nice try, buddy!"
 
         except IndexError:
             print ("That is not a valid command.\nEnter format: "

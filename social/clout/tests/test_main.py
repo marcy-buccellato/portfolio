@@ -8,13 +8,6 @@ class TestClout(unittest.TestCase):
     Test Clout() class and its methods
     """
 
-    def test_follow(self):
-        clout = Clout()
-        clout.follow('nancy', 'ben')
-
-        self.assertEqual(clout.get_person_by_name('ben').score, 1)
-        self.assertEqual(clout.get_person_by_name('nancy').score, 0)
-
     def test_follow_from_example(self):
         clout = Clout()
         clout.follow('neymar', 'xavi')
@@ -37,6 +30,13 @@ class TestClout(unittest.TestCase):
         self.assertEqual(clout.get_person_by_name('neymar').score, 0)
         self.assertEqual(clout.get_person_by_name('xavi').score, 0)
 
+    def test_follow(self):
+        clout = Clout()
+        clout.follow('nancy', 'sid')
+
+        self.assertEqual(clout.get_person_by_name('sid').score, 1)
+        self.assertEqual(clout.get_person_by_name('nancy').score, 0)
+
     def test_follow_follows_self(self):
         clout = Clout()
         follows = clout.follow('nancy', 'nancy')
@@ -47,18 +47,18 @@ class TestClout(unittest.TestCase):
     def test_clout_default(self):
         # TODO: mock follow() method since that is not what we are testing.
         clout = Clout()
-        clout.follow('nancy', 'ben')
+        clout.follow('nancy', 'sid')
         clout_string = clout.clout()
-        expected_clout_string = "ben has 1 follower(s).\nnancy has 0 follower(s).\n"
+        expected_clout_string = "sid has 1 follower(s).\nnancy has 0 follower(s).\n"
 
         self.assertEqual(clout_string, expected_clout_string)
 
     def test_clout_person(self):
         # TODO: mock follow() method since that is not what we are testing.
         clout = Clout()
-        clout.follow('nancy', 'ben')
-        clout_string = clout.clout('ben')
-        expected_clout_string = "ben has 1 follower(s).\n"
+        clout.follow('nancy', 'sid')
+        clout_string = clout.clout('sid')
+        expected_clout_string = "sid has 1 follower(s).\n"
 
         self.assertEqual(clout_string, expected_clout_string)
 
