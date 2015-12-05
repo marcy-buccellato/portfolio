@@ -1,2 +1,2 @@
 # petulant-kumquat
-Test repo for various things.
+Repo containing miscellaneous items.
