@@ -1,2 +1,3 @@
 *.pyc
 tools/db.sqlite3
+*/.idea/*
