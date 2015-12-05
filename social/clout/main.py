@@ -103,6 +103,3 @@ class Person(object):
 
     def add_to_score(self, score):
         self.score += score
-
-    def unset_current_followee_score(self, score):
-        self.score += score
