@@ -66,7 +66,7 @@ class TestClout(unittest.TestCase):
 
     # TODO: Write tests for get_person_by_name() method.
 
-    # TODO: Write tests for Person().
+    # TODO: Write tests for Person() and its methods.
 
 if __name__ == '__main__':
     unittest.main()
