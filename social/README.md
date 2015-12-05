@@ -12,7 +12,7 @@ To set up the Python module:
 To enter CLI:
 `python /path/to/social/clout/commands.py`
 ctrl+d to exit
-Commands below in [About](##about).
+Commands below in [About](#about-clout).
 
 
 To run tests:
