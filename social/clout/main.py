@@ -47,9 +47,7 @@ class Clout(object):
             # Don't allow follower to follow himself.
             return False
 
-        # Unset current_followee score: current_followee score = current_followee score - (follower + follower score)
-        if follower.current_followee:
-            follower.current_followee.add_to_score(-(1 + follower.score))
+        follower.unset_current_followee()
     
         # Adjust followee current_followee score: followee.current_followee score = followee.current_followee score + follower + follower score
         if followee.current_followee:
@@ -103,3 +101,13 @@ class Person(object):
 
     def add_to_score(self, score):
         self.score += score
+
+    def unset_current_followee(self):
+        """
+        Unset current_followee and adjust accordingly: 
+        current_followee score = current_followee score - (follower + follower score)
+        """
+        if self.current_followee:
+            self.current_followee.add_to_score(-(1 + self.score))
+
+        self.current_followee = None
