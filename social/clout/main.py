@@ -94,12 +94,14 @@ class Person(object):
         Add follower to followers list and adjust score: 
         score = score + follower + follower score
 
-        Also adjust current_followee score accordingly.
+        Also, adjust current_followee score such that he acquires the follower and his score: 
+        # current_followee score = current_followee score + follower + follower score
         """
         self.followers.append(follower)
         self.add_to_score(1 + follower.score)
 
-        self.add_follower_to_current_followee_score(follower)
+        if self.current_followee:
+            self.current_followee.add_to_score(1 + follower.score)
 
     def add_to_score(self, score):
         self.score += score
@@ -113,11 +115,3 @@ class Person(object):
             self.current_followee.add_to_score(-(1 + self.score))
 
         self.current_followee = None
-
-    def add_follower_to_current_followee_score(self, follower):
-        """
-        Adjust current followee score such that he acquires the follower and his score: 
-        current_followee score = current_followee score + follower + follower score
-        """
-        if self.current_followee:
-            self.current_followee.add_to_score(1 + follower.score)
