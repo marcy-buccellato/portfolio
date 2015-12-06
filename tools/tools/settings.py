@@ -38,6 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'difference',
+
+    # Template tags
+    'django.contrib.humanize',
 )
 
 MIDDLEWARE_CLASSES = (
