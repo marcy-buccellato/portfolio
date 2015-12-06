@@ -6,8 +6,8 @@ from django.db import models
 
 def get_difference(number):
     """
-    Get difference between the sum of the squares and the square of the sums
-    for the first n natural numbers.
+    Get the difference between the sum of the squares of the first n natural
+    numbers and the square of the sum of the same first n natural numbers
 
     Example:
         The sum of the squares of the first ten natural numbers is:
@@ -35,6 +35,9 @@ def get_difference(number):
 
 
 class Difference(models.Model):
+    """
+    Model for saving difference calculations.
+    """
     number = models.IntegerField(default=0, primary_key=True)
     value = models.IntegerField(default=0)
     occurrences = models.IntegerField(default=0)

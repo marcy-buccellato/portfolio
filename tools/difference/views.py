@@ -17,11 +17,14 @@ class DifferenceView(FormView):
     template_name = "difference/input.html"
 
     def form_valid(self, form):
-        difference, created = Difference.objects.get_or_create(number=form.cleaned_data['number'])
-        # Update difference object: increase occurrences, update date, set value if new.
+        difference, created = Difference.objects.get_or_create(
+            number=form.cleaned_data['number'])
+        # Update difference object: increase occurrences, update date, set
+        # value if new.
         difference.save()
 
-        return HttpResponseRedirect(reverse('difference_detail', kwargs={'pk': difference.number}))
+        return HttpResponseRedirect(reverse('difference_detail',
+                                            kwargs={'pk': difference.number}))
 
 
 class DifferenceDetailView(DetailView):
