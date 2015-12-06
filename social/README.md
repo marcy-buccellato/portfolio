@@ -32,4 +32,5 @@ Note:
 - A person may not follow her/himself.
 
 **Details**
+
 Clout measures the "influence" score for a set of people, based on the score of the followers of the person. That is, a person's score is the sum of its followers' scores, where each score point equals a follower. That means that a followee accumulates both the follower and his network of followers.
