@@ -15,7 +15,6 @@ class DifferenceView(FormView):
     """
     form_class = DifferenceForm
     template_name = "difference/input.html"
-    success_url = "/difference/detail/"
 
     def form_valid(self, form):
         difference, created = Difference.objects.get_or_create(number=form.cleaned_data['number'])
