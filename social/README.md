@@ -19,7 +19,7 @@ To run tests:
 `python /path/to/social/clout/tests/test_main.py`
 
 ## Clout
-Clout is a CLI tool which shows a graph of people and their "influence", where influence is the number of followers a person has, including number of followers or followers, etc.
+Clout is a CLI tool which shows a graph of people and their "influence", where influence is the number of followers a person has, including number of followers of followers, etc.
 
 - Add a relationship by entering: `<person_a> follows <person_b>`
 - See the popularity of a person by entering: `clout <person>`
