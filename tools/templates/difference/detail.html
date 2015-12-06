@@ -1,0 +1,11 @@
+{% load tz humanize %}
+
+<div>
+    <span>number: {{ difference.number }}</span><br>
+    <span>value: {{ difference.value|intcomma }}</span><br>
+    <span>occurrences: {{ difference.occurrences }}</span><br>
+    <span>update_dt: {{ difference.update_dt|timezone:'US/Eastern'|date:"M d, Y H:i" }}</span><br>
+</div>
+<div>
+    <a href="{% url 'difference_input' %}">Try another!</a>
+</div>

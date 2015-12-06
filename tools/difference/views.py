@@ -1,11 +1,10 @@
-import json
-import math
-
-from django.http import JsonResponse
-from django.views.generic import FormView
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.views.generic import FormView, DetailView
 
 from difference.forms import DifferenceForm
 from difference.models import Difference
+
 
 class DifferenceView(FormView):
     """
@@ -15,50 +14,22 @@ class DifferenceView(FormView):
     100.
     """
     form_class = DifferenceForm
-    # TODO: Use proper form handling with validation.
+    template_name = "difference/input.html"
 
-    # TODO: Move this method to the model and autoset the difference value upon
-    # saving.
-    def get_difference(self, number):
-        """
-        Get difference between the sum of the squares and the square of the sums
-        for a given number
-        """
-        if number > 100:
-            raise ValueError('Number must be less than 100')
+    def form_valid(self, form):
+        difference, created = Difference.objects.get_or_create(
+            number=form.cleaned_data['number'])
+        # Update difference object: increase occurrences, update date, set
+        # value if new.
+        difference.save()
 
-        sum_of_the_squares = 0
-        sum_of_the_numbers = 0
-        for x in range(1, number + 1):
-            sum_of_the_squares += math.pow(x, 2)
-            sum_of_the_numbers += x
+        return HttpResponseRedirect(reverse('difference_detail',
+                                            kwargs={'pk': difference.number}))
 
-        square_of_the_sums = math.pow(sum_of_the_numbers, 2)
 
-        return square_of_the_sums - sum_of_the_squares
-
-    def get_context_data(self, **kwargs):
-        context = {}
-        number = self.request.GET.get('number')
-        if number:
-            number = int(number)
-            # TODO: Add error handling to ensure 'number' is numerical.
-
-            difference, created = Difference.objects.get_or_create(number=number)
-            if created:
-                difference.value = self.get_difference(number)
-
-            difference.occurrences = difference.occurrences + 1
-            difference.save()
-
-            context = {
-                "datetime": difference.update_dt,
-                "value": difference.value,
-                "number": difference.number,
-                "occurrences": difference.occurrences
-            }
-
-        return context
-
-    def render_to_response(self, context, **response_kwargs):
-        return JsonResponse(context)
+class DifferenceDetailView(DetailView):
+    """
+    Display a Difference object.
+    """
+    model = Difference
+    template_name = "difference/detail.html"

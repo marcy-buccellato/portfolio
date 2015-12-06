@@ -1,4 +1,8 @@
 from django import forms
 
+
 class DifferenceForm(forms.Form):
-    number = forms.CharField(max_length=100)
+    """
+    Form to input a number to be calculated.
+    """
+    number = forms.IntegerField(max_value=100)
