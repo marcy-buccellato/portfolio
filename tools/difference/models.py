@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from math import pow
 
 from django.db import models
@@ -6,7 +7,17 @@ from django.db import models
 def get_difference(number):
     """
     Get difference between the sum of the squares and the square of the sums
-    for a given number
+    for the first n natural numbers.
+
+    Example:
+        The sum of the squares of the first ten natural numbers is:
+    1^2 + 2^2 + ... + 10^2 = 385
+
+    The square of the sum of the first ten natural numbers is:
+    (1 + 2 + ... + 10)^2 = 552 = 3025
+
+    Hence the difference between the sum of the squares of the first ten
+    natural numbers and the square of the sum is 3025 − 385 = 2640.
     """
     if not isinstance(number, int):
         return
@@ -33,5 +44,7 @@ class Difference(models.Model):
              update_fields=None):
         if not self.value:
             self.value = get_difference(self.number)
+
+        self.occurrences += 1
 
         return super(Difference, self).save()
