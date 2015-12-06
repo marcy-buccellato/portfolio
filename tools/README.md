@@ -31,8 +31,8 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
-Load http://localhost:8000/difference/?number=n in your browser, where
-`n` is any number between 0 and 100.
+Load http://localhost:8000/difference/ in your browser.
+Input a number between 0-100.
 
 #### Run tests
 ```bash
@@ -42,7 +42,8 @@ python manage.py test
 ## Difference
 Difference is a service that will allow a user to input a query and will yield the difference between:
 1. the sum of the squares of the first n natural numbers
-2. the square of the sum of the same first n natural numbers, where n is guaranteed to be no greater than 100.
+2. the square of the sum of the same first n natural numbers
+where n is an input number between 0-100.
 
 **Example**
 
