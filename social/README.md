@@ -1,4 +1,4 @@
-##Setup Clout
+## Setup
 
 **Prereqs**
 - Python 2.7
@@ -12,14 +12,14 @@ To set up the Python module:
 To enter CLI:
 `python /path/to/social/clout/commands.py`
 ctrl+d to exit
-Commands below in [About](#about-clout).
+Commands below in [Clout](#about-clout).
 
 
 To run tests:
 `python /path/to/social/clout/tests/test_main.py`
 
-##About Clout
-Create a CLI tool which shows a graph of people and their "popularity", where popularity is the number of followers a person has, including number of followers or followers, etc.
+## Clout
+Clout is a CLI tool which shows a graph of people and their "popularity", where popularity is the number of followers a person has, including number of followers or followers, etc.
 
 - Add a relationship by entering: `<person_a> follows <person_b>`
 - See the popularity of a person by entering: `clout <person>`
