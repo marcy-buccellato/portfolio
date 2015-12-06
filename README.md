@@ -1,2 +1,2 @@
-# petulant-kumquat
-Repo containing miscellaneous items.
+# Portfolio
+Portfolio showcasing my programming expertise.
