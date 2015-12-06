@@ -1,4 +1,7 @@
 from django import forms
 
+from difference.models import Difference
+
+
 class DifferenceForm(forms.Form):
-    number = forms.CharField(max_length=100)
+    number = forms.IntegerField(max_value=100)
