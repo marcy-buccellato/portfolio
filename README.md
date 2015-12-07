@@ -1,2 +1,2 @@
 # Portfolio
-Portfolio showcasing my programming expertise.
+Portfolio showcasing my programming work.
