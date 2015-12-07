@@ -20,7 +20,7 @@ def get_difference(number):
     natural numbers and the square of the sum is 3025 − 385 = 2640.
     """
     if not isinstance(number, int):
-        return
+        raise ValueError("'number' must be an integer.")
 
     sum_of_the_squares = 0
     sum_of_the_numbers = 0
